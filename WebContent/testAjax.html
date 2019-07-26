@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"  src="js/jquery-3.2.0.min.js" ></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#btn").click(function(){
+		$.ajax({
+			type:"post",
+			url:"testAjax.action",
+			data:{"id":5,"username":"test22中文"},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+			},
+			failure:function(data){
+				alert(11);
+				console.log(data);
+			}
+		});
+	});
+	
+	
+	
+	
+});
+
+</script>
+</head>
+<body>
+	<button type="button" id="btn"  >查询</button>
+</body>
+</html>

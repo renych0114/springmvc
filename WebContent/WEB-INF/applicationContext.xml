@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://www.springframework.org/schema/context   
+            http://www.springframework.org/schema/context/spring-context.xsd  
+            http://www.springframework.org/schema/mvc  
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+            http://www.springframework.org/schema/util  
+            http://www.springframework.org/schema/util/spring-util.xsd">
+   
+   <!-- 处理器映射器:
+   		进行请求的分发
+   		BeanNameUrlHandlerMapping：按照bean的name匹配的方式进行请求的映射
+   		SimpleUrlHandlerMapping
+    -->
+  	<!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"   ></bean> -->
+  	
+   <!-- 处理器适配器：进行控制器的适配
+   		SimpleControllerHandlerAdapter：适配实现Controller接口形式的适配器
+   		HttpRequestHandlerAdapter:适配实现HttpRequestHandler接口形式的适配器
+     -->
+   <!-- <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" ></bean> -->
+   
+   <!-- 注解形式的映射器，适配器 -->
+   <mvc:annotation-driven></mvc:annotation-driven>
+   
+   
+   <!-- 管理控制器类 -->
+  <!--  <bean name="/login.action"   class="springmvc.controller.LoginController"  ></bean> -->
+  <!-- 组件扫描的形式管理所有控制器类的对象 -->
+	<context:component-scan base-package="springmvc.controller"></context:component-scan>
+   
+   <!-- 响应的配置 -->
+   <bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver"  >
+   		<property name="viewClass"  value="org.springframework.web.servlet.view.JstlView" />
+   		<property name="suffix"  value=".jsp" />
+   </bean>
+   
+   <!-- 配置文件上传的解析器 -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"    >
+   		<property name="maxUploadSize"  >
+   			<value>5242880</value>
+   		</property>
+   </bean>
+   
+   <!-- 配置异常处理器 -->
+ 	<bean class="springmvc.utils.CustomExceptionResolver"  ></bean>
+ 	
+ 	<!-- 
+ 		配置拦截器
+ 	 -->
+ 	<mvc:interceptors>
+ 		<mvc:interceptor>
+ 			<mvc:mapping path="/**"/>
+ 			<mvc:exclude-mapping path="/login.action"/>
+ 			<bean class="springmvc.utils.LoginInterceptor" ></bean>
+ 		</mvc:interceptor>
+ 	</mvc:interceptors>
+ 	
+ 	
+</beans>
+
+
+
+
+
+
+
+
+
+
