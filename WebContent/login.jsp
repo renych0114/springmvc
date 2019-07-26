@@ -9,6 +9,8 @@
 <body>
 	<form action="login.action" method="post"   >
 		<button type="submit" >登录</button>
+		
+		
 	</form>
 </body>
 </html>
